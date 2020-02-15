@@ -144,7 +144,7 @@ In the model/ directory we have provided various models that were used for exper
 
 # System Requirements
 
-The repository has been developed for Python 3.5.2 using PyTorch 0.3.1.
+This repository was originally developed in Python 3.5.2 using PyTorch 0.3.1. 
 
 # Reproducing Our Experiments 
 
