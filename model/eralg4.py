@@ -51,7 +51,7 @@ class Net(nn.Module):
 
     def forward(self, x, t):
         output = self.net(x)
-        return output
+        return output,None
 
 
     def getBatch(self,x,y,t):
@@ -100,7 +100,7 @@ class Net(nn.Module):
             bx,by = self.getBatch(xi,yi,t)
             
             # Update parameters with mini-batch SGD:
-            prediction = self.forward(bx,0)
+            prediction,_ = self.forward(bx,0)
             loss = self.bce(prediction,by)
             loss.backward()
             self.opt.step()
@@ -114,5 +114,3 @@ class Net(nn.Module):
                 if p < self.memories:
                     self.M[p] = [xi,yi,t]
                     
-
-

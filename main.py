@@ -118,7 +118,7 @@ def eval_tasks(model, tasks, args):
                 if args.cuda:
                     xb = xb.cuda()
                 # xb = Variable(xb, volatile=True)  # torch 0.4+
-                _, pb = torch.max(model(xb, t).data.cpu(), 1, keepdim=False)
+                _, pb = torch.max(model(xb, t)[0].data.cpu(), 1, keepdim=False)
                 rt += (pb == yb).float().sum()
 
         result.append(rt / x.size(0))
@@ -148,6 +148,11 @@ def life_experience(model, continuum, x_te, args):
 
         model.train()
         model.observe(Variable(v_x), t, Variable(v_y))
+        if i % args.cv_step == 0:
+            try:
+                model.exchange()
+            except:
+                pass 
 
     result_a.append(eval_tasks(model, x_te, args))
     result_t.append(current_task)
@@ -160,6 +165,12 @@ def life_experience(model, continuum, x_te, args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Continuum learning')
+
+    parser.add_argument('--cv_step', type=int, default=100)  # 同步参数步长
+    parser.add_argument('--cv_mse', type=float, default=1.0)  #
+    parser.add_argument('--cv_l1', type=float, default=0.1)    #
+
+
 
     # model details
     parser.add_argument('--model', type=str, default='single',
@@ -204,7 +215,7 @@ if __name__ == "__main__":
                         help='beta learning rate parameter') # exploration factor in roe
     
     # experiment parameters
-    parser.add_argument('--cuda', type=str, default='no',
+    parser.add_argument('--cuda', type=str, default='yes',
                         help='Use GPU?')
     parser.add_argument('--seed', type=int, default=0,
                         help='random seed of model')
@@ -222,6 +233,12 @@ if __name__ == "__main__":
                         help='training samples per task (all if negative)')
     parser.add_argument('--shuffle_tasks', type=str, default='no',
                         help='present tasks in order')
+
+
+    # adv_beta
+    parser.add_argument('--adv_beta', type=float, default=0.5,
+                        help='')
+
     args = parser.parse_args()
 
     args.cuda = True if args.cuda == 'yes' else False
@@ -257,7 +274,7 @@ if __name__ == "__main__":
         try:
             model.cuda()
         except:
-            pass 
+            pass
 
     # run model on continuum
     result_t, result_a, spent_time = life_experience(
