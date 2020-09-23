@@ -55,15 +55,15 @@ python3 main.py $PERM --seed 135 --model eralg4 --lr 0.1 --memories 128 --replay
 
 echo "-----------------------------------------------"
 echo "-----------------------------------------------"
-python3 main.py $perm --seed 140 --model eralg4_cv --lr 0.1 --memories 128 --replay_batch_size 25 
-python3 main.py $perm --seed 140 --model eralg4 --lr 0.1 --memories 128 --replay_batch_size 25 
+python3 main.py $PERM --seed 140 --model eralg4_cv --lr 0.1 --memories 128 --replay_batch_size 25 
+python3 main.py $PERM --seed 140 --model eralg4 --lr 0.1 --memories 128 --replay_batch_size 25 
 
 echo "-----------------------------------------------"
 echo "-----------------------------------------------"
-python3 main.py $perm --seed 145 --model eralg4_cv --lr 0.1 --memories 128 --replay_batch_size 25 
-python3 main.py $perm --seed 145 --model eralg4 --lr 0.1 --memories 128 --replay_batch_size 25 
+python3 main.py $PERM --seed 145 --model eralg4_cv --lr 0.1 --memories 128 --replay_batch_size 25 
+python3 main.py $PERM --seed 145 --model eralg4 --lr 0.1 --memories 128 --replay_batch_size 25 
 
 echo "-----------------------------------------------"
 echo "-----------------------------------------------"
-python3 main.py $perm --seed 150 --model eralg4_cv --lr 0.1 --memories 128 --replay_batch_size 25 
+python3 main.py $PERM --seed 150 --model eralg4_cv --lr 0.1 --memories 128 --replay_batch_size 25 
 python3 main.py $PERM --seed 150 --model eralg4 --lr 0.1 --memories 128 --replay_batch_size 25 
